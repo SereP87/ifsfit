@@ -139,6 +139,7 @@ pro ifsf_fitloop,ispax,colarr,rowarr,cube,initdat,linelist,oned,onefit,quiet,$
    endif
 
    nodata = where(flux ne 0d AND finite(flux),ct)
+   if ct lt 30 then goto, skip
    if ct ne 0 then begin
 
       if ~ tag_exist(initdat,'noemlinfit') then begin
@@ -490,6 +491,8 @@ pro ifsf_fitloop,ispax,colarr,rowarr,cube,initdat,linelist,oned,onefit,quiet,$
 
    endif else $
       print,'IFSF_FITLOOP: No good data. Aborting.'
+   skip: print,''
+   if ct lt 30 then print,'IFSF_FITLOOP: No good data. Aborting. Skip'      
    
    if keyword_set(logfile) then $
       if logfile[ispax] ne '' then $
